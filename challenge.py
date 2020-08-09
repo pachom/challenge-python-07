@@ -71,14 +71,27 @@ DATA = [
     },
 ]
 
+def adiciona_dic_homeless(a):
+	if a['organization'] == '':
+		a['homeless'] = True
+	else:
+		a['homeless'] = False
+	return a
+	
+def adiciona_dic_old(a):
+	if a['age'] > 30:
+		a['old'] = True
+	else:
+		a['old'] = False
+	return a
 
 def run():
 
-    all_python_devs =  # Using filter, generate a list with all the python devs
-    all_Platzi_workers =  # Using filter, generate a list with all the Platzi workers
-    adults =  # Using filter, generate a list with all people over 18 years old
-    workers =  # Using map, generate a new list of people with a key 'homeless' with True or False values, if 'organization' have something or not
-    old_people =  # Using map, generate a new list of people with a key 'old' with True or False values, if 'age' is greater than 30 or not
+    all_python_devs =  list(filter(lambda x: x['language'] == 'python', DATA))  		# Using filter, generate a list with all the python devs
+    all_Platzi_workers = list(filter(lambda x: x['organization'] == 'Platzi', DATA)) 	# Using filter, generate a list with all the Platzi workers
+    adults =  list(filter(lambda x: x['age'] >= 18, DATA))								# Using filter, generate a list with all people over 18 years old
+    workers =  list(map( adiciona_dic_homeless, DATA))  									# Using map, generate a new list of people with a key 'homeless' with True or False values, if 'organization' have something or not  list(map(lambda x: x.update({'homeless':True}) if x['organization'] == '' else x.update({'homeless': False}), DATA))
+    old_people = list(map( adiciona_dic_old, DATA))										# Using map, generate a new list of people with a key 'old' with True or False values, if 'age' is greater than 30 or not
 
     print('Python devs: ')
     for dev in all_python_devs:
